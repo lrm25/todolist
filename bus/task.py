@@ -4,21 +4,25 @@ priority_dict = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 3, 'F': 4 }
 
 class Task:
 
-    def __init__(self, description, date, priority, list_name, line, time=None):
+    def __init__(self, description, date, priority, list_name, line, time=None,
+                 difficulty=None):
         self._description = description
         self._converted_date = datetime.strptime(date, '%m-%d-%Y')
         self._priority = priority
         self._list_name = list_name
         self._line = line
         self._time = time
+        self._difficulty = difficulty
         time_delta = (datetime.now() - self._converted_date).days
         #print("time delta:  %d" % time_delta)
         if time is None:
             priority_add = priority_dict[priority]
             orig_time_delta = time_delta
-            time_delta = time_delta - priority_add
+            time_delta -= priority_add
             self._sec = 0
             self._priority_str = priority+","+str(orig_time_delta * -1)
+            if difficulty is not None:
+                self._priority_str += ","+str(difficulty)
         else:
             time_strs = time.split(':')
             self._sec = (int(time_strs[0]) * 3600) + int(time_strs[1])
@@ -63,6 +67,20 @@ def compare(task_one, task_two):
                 return 1
             elif (task_two._priority < task_one._priority):
                 return -1
+            elif ((task_one._difficulty is None) and 
+                  (task_two._difficulty is not None)):
+                return 1
+            elif ((task_two._difficulty is None) and
+                  (task_one._difficulty is not None)):
+                return -1
+            elif ((task_two._difficulty is not None) and
+                  (task_one._difficulty is not None)):
+                if (task_one._difficulty < task_two._difficulty):
+                    return 1
+                elif (task_two._difficulty < task_one._difficulty):
+                    return -1
+                else:
+                    return 0
             else:
                 return 0
 

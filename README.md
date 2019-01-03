@@ -21,3 +21,8 @@ Possible future improvements:
 * Task separation by priority
 * General cleanup
 * Testing
+* Error handling for priority not in dictionary
+* Line number - use enumerate
+* Separation by priority
+* Conversion to database
+* Lists and sublists
