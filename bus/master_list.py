@@ -1,20 +1,21 @@
-import re
+# 
+# module that handles coversion from raw data to task objects and display
+#
 
+import re
 from bus.task import Task, cmp_to_key, compare
 
 tasks = []
 
-def sort_list(task_one, task_two):
-
-    date_one = task_one.get_date()
-    date_two = task_two.get_date()
-
-    if (date_one < date_two):
-        return -1
-    elif (date_one == date_two):
-        return 0
-    return 1
-
+#
+# convert the lines into tasks, then print the tasks
+# TODO move the printing to app layer
+# 
+# params:
+# lines:  full list of lines
+#
+# returns:  nothing
+#
 def parse_lines(lines):
 
     errors = []
