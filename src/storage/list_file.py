@@ -34,12 +34,15 @@ class ListFile:
         return self._file_name
 
     # 
-    # TODO move up to master_list
     # return:  get all lines from this file
+    # format:  a list of tuples containing the file name, line number, and
+    # line text itself
     #
     def get_lines(self):
+
         lines = []
         basename = os.path.basename(self._file_name)
+
         with open(self._file_name) as f:
             for line_num, line in enumerate(f.readlines(), 1):
                 stripped_line = line.rstrip()

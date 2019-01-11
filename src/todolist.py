@@ -3,7 +3,7 @@
 #
 
 import sys
-from storage import folder
+from storage.folder import Folder
 from bus import master_list
 
 #
@@ -18,11 +18,11 @@ from bus import master_list
 #
 def main():
     if (len(sys.argv) is not 2):
-        print("Format:  python application.py <list folder>")
+        print("Format:  python todolist.py <list folder>")
         exit(0)
     try:
         # TODO remove direct connection to storage layer
-        folder.set(sys.argv[1])
+        folder = Folder(sys.argv[1])
         folder.gather_lists()
         master_list.parse_lines(folder.get_lines())
     except NotADirectoryError as e:
