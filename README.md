@@ -1,4 +1,8 @@
+# Todolist
+
+## Description
 This is a todolist program I wrote for myself.
+
 Instructions later.
 
 Possible future improvements:
